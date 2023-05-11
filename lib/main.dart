@@ -21,8 +21,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
+
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  bool firstSelect = false;
+  bool secondtSelect = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +51,7 @@ class MyHomePage extends StatelessWidget {
         actions: [
           TextButton(
             child: Text(
-              '4/132',
+              '1/75',
               style: TextStyle(
                 fontSize: 20,
                 color: Color(0xff69f0ae),
@@ -71,13 +80,14 @@ class MyHomePage extends StatelessWidget {
               children:
               [
                 Expanded(
-                  child: Text('Nonallergic rhinitis involves chronic sneezing or a congested, drippy nose with no apparent cause. Nonallergic rhinitis symptoms are similar to'
-              'those of hay fever (allergic rhinitis), but with none of the usual evidence of an allergic reaction. '
-    'Nonallergic rhinitis can affect children and adults.',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                  ),),
+                  child: Text(
+                    'Nonallergic rhinitis involves chronic sneezing or a congested, drippy nose with no apparent cause. Nonallergic rhinitis symptoms are similar to'
+                        'those of hay fever (allergic rhinitis), but with none of the usual evidence of an allergic reaction. '
+                        'Nonallergic rhinitis can affect children and adults.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),),
                 ),
                 Image(image: AssetImage('assets/images/helper.JPG')),
               ],
@@ -86,32 +96,51 @@ class MyHomePage extends StatelessWidget {
           Spacer(),
           Container(
             color: Color(0xff69f0ae),
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
             padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children:
-            [
-              Text('4. Do you have Continuous Sneezing?',style: TextStyle(fontSize: 18,),),
-              Row(
-                children: [
-                  Spacer(),
-                  Text('No',style: TextStyle(fontSize: 17,),),
-                  Radio(value: false, groupValue: true, onChanged: (value) {},),
-                  Text('Yes',style: TextStyle(fontSize: 17,),),
-                  Radio(value: false, groupValue: true, onChanged: (value) {},),
-                ],
-              ),
-              SizedBox(height: 20,),
-              Row(children:
               [
-                Text('You can not go to the previous syntomps', style: TextStyle(
-                  fontSize: 16,
-                ),),
-                SizedBox(width: 10,),
-                ElevatedButton(onPressed: (){}, child: Text('Next')),
+                Text('4. Do you have Continuous Sneezing?',
+                  style: TextStyle(fontSize: 18,),),
+                Row(
+                  children: [
+                    Spacer(),
+                    Text('No', style: TextStyle(fontSize: 17,),),
+                    Radio(
+                      value: firstSelect ? true : false, groupValue: true, onChanged: (value) {
+                      firstSelect = true;
+                      secondtSelect = false;
+                      setState(() {
+                      });
+                    },),
+                    Text('Yes', style: TextStyle(fontSize: 17,),),
+                    Radio(
+                      value: secondtSelect ? true : false,
+                      groupValue: true,
+                      onChanged: (value) {
+                        secondtSelect = true;
+                        firstSelect = false;
+                        setState(() {
+                        });
+                      },),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                Row(children:
+                [
+                  Text(
+                    'You can not go to the previous syntomps', style: TextStyle(
+                    fontSize: 16,
+                  ),),
+                  SizedBox(width: 10,),
+                  ElevatedButton(onPressed: () {}, child: Text('Next')),
+                ],),
               ],),
-            ],),
           ),
         ],
       ),
